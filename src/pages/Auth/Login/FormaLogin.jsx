@@ -2,13 +2,16 @@
 import React from 'react';
 
 //Formik
-import {Formik, Form} from "formik";
+import {Formik, Form, Field} from "formik";
 
 //Input
 import {TextField} from "../../../components/Form/TextField";
 
 //Validation
 import {validateLogin} from "../../../_utils/validation";
+
+//Type
+import {func} from "prop-types";
 
 //Style
 import './style.css'
@@ -21,7 +24,8 @@ export const AuthLogin = ({handleSubmitForm}) => {
         <Formik
             initialValues={{
                 email: '',
-                password: ''
+                password: '',
+                checked: false
             }}
             validateOnBlur
             onSubmit={values => handle(values)}
@@ -33,6 +37,10 @@ export const AuthLogin = ({handleSubmitForm}) => {
                         <Form>
                             <TextField label={'email'} name={'email'} type={'email'}  />
                             <TextField label={'password'} name={'password'} type={'password'} />
+                            <label>
+                                <Field type="checkbox" name={'checked'} className={'mr-2 mt-3'}/>
+                                Запомнить меня
+                            </label>
                             <button
                                 type={'submit'}
                                 className={'button handler'}
@@ -45,4 +53,8 @@ export const AuthLogin = ({handleSubmitForm}) => {
             }
         </Formik>
     )
+}
+
+AuthLogin.prototype = {
+    handleSubmitForm: func.isRequired
 }

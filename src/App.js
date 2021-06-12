@@ -8,6 +8,10 @@ import {routes} from "./_routes";
 //Auth
 import Login from "./pages/Auth/Login";
 
+
+//User Routes
+import UserRoutes from "./components/UserRoutes";
+
 //Page
 import Home from "./pages/Home";
 
@@ -30,7 +34,7 @@ const App = ({isLoading}) => {
               isLoading ? <Spinner /> :
                   <Switch>
                       <Route exact path="/" render={() => (<Redirect to={routes.home} />)} />
-                      <Route exact path={routes.home} component={ () => <Home />} />
+                      <UserRoutes exact path={routes.home} component={ () => <Home />} />
                       <Route exact path={routes.login} component={ () => <Login />} />
                   </Switch>
           }

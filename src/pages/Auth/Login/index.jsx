@@ -2,27 +2,40 @@
 import React, {useState} from "react";
 import {useHistory} from 'react-router-dom';
 
+//Actions
+import {loggerInUser} from "../../../_actions";
+
+//Redux
+import {connect} from "react-redux";
+
 //Function
 import {authenticateUser} from '../../../sdk';
 
 //Form
 import {AuthLogin} from "./FormaLogin";
 
+//Routes
+import {routes} from "../../../_routes";
+
 //Style
 import {toast} from "react-toastify";
 
-const Login = () => {
+const Login = ({loggerInUser}) => {
     const [loading, setLoading] = useState(false)
     const history = useHistory();
 
-    const handleSubmit = async (email, password) => {
+    const handleSubmit = async(email, password, checked) => {
         setLoading(true)
 
         await authenticateUser(email, password)
             .then(res => {
                 res.text().then(function(text) {
                     toast.success(`Hello ${JSON.parse(text).email}`)
-                    history.push('/')
+                    if(checked){
+                        localStorage.setItem('otpuskToken', JSON.parse(text).token)
+                    }
+                    loggerInUser(JSON.parse(text).email)
+                    history.push(routes.home)
                 });
             })
             .catch(error => {
@@ -32,6 +45,7 @@ const Login = () => {
                     toast.error(JSON.parse(text).message)
                 });
             })
+
     }
 
     return (
@@ -50,5 +64,6 @@ const Login = () => {
     )
 }
 
+const mapStateToProps = () => {}
 
-export default Login;
+export default connect(mapStateToProps, {loggerInUser})(Login);
