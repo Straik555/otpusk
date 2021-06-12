@@ -18,7 +18,7 @@ import './style.css'
 
 export const AuthLogin = ({handleSubmitForm}) => {
     const handle = (values) => {
-        handleSubmitForm(values.email, values.password)
+        handleSubmitForm(values.email, values.password, values.checked)
     }
     return (
         <Formik

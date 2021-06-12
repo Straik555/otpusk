@@ -1,5 +1,5 @@
 //ACTIONS
-import {LOGGER_IN_USER} from "../_actionsType";
+import {LOGGER_IN_USER, LOGOUT} from "../_actionsType";
 
 const initialState = {
     user: {},
@@ -17,6 +17,8 @@ const userReducer = (state = initialState, {type, payload}) => {
                 isLoading: false,
                 error: null
             }
+        case LOGOUT:
+            return initialState
         default:
             return state
     }

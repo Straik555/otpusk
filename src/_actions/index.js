@@ -1,5 +1,5 @@
 // Actions
-import {LOGGER_IN_USER} from '../_actionsType';
+import {LOGGER_IN_USER, LOGOUT} from '../_actionsType';
 
 export const loggerInUser = (email, token) => dispatch => {
     return dispatch({
@@ -9,4 +9,12 @@ export const loggerInUser = (email, token) => dispatch => {
             token
         }
     })
+}
+
+export const userLogOut = () => dispatch => {
+    localStorage.removeItem('otpuskToken')
+    dispatch({
+        type: LOGOUT,
+        payload: {}
+    });
 }

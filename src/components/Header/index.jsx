@@ -2,8 +2,11 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useLocation} from "react-router-dom";
 
+//Action
+import {userLogOut} from "../../_actions";
+
 //Redux
-import {useSelector} from "react-redux";
+import {connect} from "react-redux";
 
 //Routes
 import {routes} from '../../_routes';
@@ -15,14 +18,15 @@ import { Menu } from 'antd';
 import {
     AppstoreOutlined,
     LogoutOutlined,
-    UserOutlined
+    UserOutlined,
+    SettingOutlined,
 } from "@ant-design/icons";
 
 
-const { Item } = Menu;
+const { Item, SubMenu } = Menu;
 
-const Header = () => {
-    const {isLogin} = useSelector((state) => ({...state.userReducer}))
+const Header = ({isLogin, user, userLogOut}) => {
+    // const {isLogin, user} = useSelector((state) => ({...state.userReducer}))
 
     const location = useLocation();
     const [current, setCurrent] = useState(routes.home);
@@ -33,7 +37,7 @@ const Header = () => {
         setCurrent(e.key)
     }
     const logOut = () => {
-
+        userLogOut()
     }
     return (
         <Menu
@@ -61,18 +65,37 @@ const Header = () => {
                     </Link>
                 </Item>
             }
-            { isLogin &&
-                <Item
-                    key={routes.user}
-                    icon={<AppstoreOutlined />}
+            {
+                isLogin &&
+                <SubMenu
+                    icon={<SettingOutlined />}
+                    title={user.email}
+                    className={'float-right'}
+                    key={'sub1'}
                 >
-                    <Link to={routes.user}>Dashboard</Link>
-                </Item>
+                    <Item
+                        key={routes.user}
+                        icon={<AppstoreOutlined />}
+                    >
+                        <Link to={routes.user}>Dashboard</Link>
+                    </Item>
+                    <Item
+                        key={'logout'}
+                        icon={<LogoutOutlined />}
+                        onClick={logOut}
+                    >
+                        <Link to={routes.login}>LogoOut</Link>
+                    </Item>
+                </SubMenu>
             }
         </Menu>
     )
 
 }
 
+const mapStateToProps = ({userReducer: {isLogin, user}}) => {
+    return {isLogin, user}
+}
 
-export default Header;
+
+export default connect(mapStateToProps, {userLogOut})(Header);
