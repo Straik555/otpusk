@@ -64,6 +64,8 @@ const Login = ({loggerInUser}) => {
     )
 }
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => {
+    return {}
+}
 
 export default connect(mapStateToProps, {loggerInUser})(Login);
