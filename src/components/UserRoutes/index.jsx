@@ -31,7 +31,7 @@ const UserRoutes = ({children, loggerInUser, user, ...rest}) => {
                     if(res){
                         getUser(userToken)
                             .then(res => {
-                                loggerInUser(res.email)
+                                loggerInUser(res.email, userToken)
                                 setOk(true)
                             })
                             .catch(err => console.log('err', err))

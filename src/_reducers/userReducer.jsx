@@ -12,9 +12,7 @@ const userReducer = (state = initialState, {type, payload}) => {
     switch (type){
         case LOGGER_IN_USER:
             return {
-                user: {
-                    email: payload
-                },
+                user: payload,
                 isLogin: true,
                 isLoading: false,
                 error: null

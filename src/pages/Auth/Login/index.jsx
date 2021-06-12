@@ -34,7 +34,7 @@ const Login = ({loggerInUser}) => {
                     if(checked){
                         localStorage.setItem('otpuskToken', JSON.parse(text).token)
                     }
-                    loggerInUser(JSON.parse(text).email)
+                    loggerInUser(JSON.parse(text).email, JSON.parse(text).token)
                     history.push(routes.home)
                 });
             })
@@ -64,6 +64,8 @@ const Login = ({loggerInUser}) => {
     )
 }
 
-const mapStateToProps = () => {}
+const mapStateToProps = () => {
+    return {}
+}
 
 export default connect(mapStateToProps, {loggerInUser})(Login);

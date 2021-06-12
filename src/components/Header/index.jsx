@@ -2,6 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useLocation} from "react-router-dom";
 
+//Redux
+import {useSelector} from "react-redux";
+
 //Routes
 import {routes} from '../../_routes';
 
@@ -18,7 +21,9 @@ import {
 
 const { Item } = Menu;
 
-const Header = ({isLogin}) => {
+const Header = () => {
+    const {isLogin} = useSelector((state) => ({...state.userReducer}))
+
     const location = useLocation();
     const [current, setCurrent] = useState(routes.home);
     useEffect(() => {
@@ -54,6 +59,14 @@ const Header = ({isLogin}) => {
                     <Link to={routes.login}>
                         Login
                     </Link>
+                </Item>
+            }
+            { isLogin &&
+                <Item
+                    key={routes.user}
+                    icon={<AppstoreOutlined />}
+                >
+                    <Link to={routes.user}>Dashboard</Link>
                 </Item>
             }
         </Menu>

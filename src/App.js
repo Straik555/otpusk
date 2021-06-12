@@ -8,12 +8,12 @@ import {routes} from "./_routes";
 //Auth
 import Login from "./pages/Auth/Login";
 
-
 //User Routes
 import UserRoutes from "./components/UserRoutes";
 
 //Page
 import Home from "./pages/Home";
+import UserProfile from "./pages/User";
 
 //Nav
 import Header from "./components/Header";
@@ -35,6 +35,7 @@ const App = ({isLoading}) => {
                   <Switch>
                       <Route exact path="/" render={() => (<Redirect to={routes.home} />)} />
                       <UserRoutes exact path={routes.home} component={ () => <Home />} />
+                      <UserRoutes exact path={routes.user} component={ () => <UserProfile />} />
                       <Route exact path={routes.login} component={ () => <Login />} />
                   </Switch>
           }
